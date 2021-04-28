@@ -135,5 +135,48 @@ public class MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("AGUS", "ON ACTIVITY RESULT");
+
+        //IDENTIFICAR SI HAY SESION INICIADA
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        //SI HAY SESIÓN INICIADA, SE INICIALIZAN LOS SHARE BUTTON
+        if (isLoggedIn) {
+            Log.d("AGUS", "Usuario ya con sesion");
+
+            //COMPARTIR PUBLICACION
+            //El link está vacio para que abra una publicación vacia
+            ShareLinkContent post = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(""))
+                    .build();
+            compartirPublicacion.setShareContent(post);
+
+            //COMPARTIR LINK
+            //Esta publicacion comparte un video de youtube con una cita y un hastag
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse("https://youtu.be/OsfAnsMY21M"))
+                    .setQuote("I see us written in the stars") //cita
+                    .setShareHashtag(new ShareHashtag.Builder() //hashtag
+                            .setHashtag("#DuaLipa")
+                            .build()).build();
+            compartirLink.setShareContent(content);
+
+            //COMPARTIR FOTO
+            //Obtener el bitmap de la imagen a compartir
+            Bitmap image = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                    R.drawable.foto);
+            //Crear la foto (SharePhoto) que se va a compartir con el bitmap obtenido
+            SharePhoto photo = new SharePhoto.Builder()
+                    .setBitmap(image)
+                    .build();
+            //Agregar la SharePhoto al objeto SharePhotoContent
+            SharePhotoContent contentPhoto = new SharePhotoContent.Builder()
+                    .addPhoto(photo)
+                    .build();
+            compartirFoto.setShareContent(contentPhoto);
+
+        } else {
+            Log.d("AGUS", "Usuario sin sesion");
+        }
     }
 }
