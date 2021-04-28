@@ -29,6 +29,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //PARA USAR EL SDK DE FACEBOOK
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    //PARA INICIAR SESIÓN EN FB
     implementation 'com.facebook.android:facebook-login:[8.1)'
+    //PARA COMPARTIR PUBLICACIONES EN FB
+    implementation 'com.facebook.android:facebook-share:[8,9)'
 }
